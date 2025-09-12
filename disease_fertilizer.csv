@@ -1,0 +1,16 @@
+Disease,Fertilizer_1,Fertilizer_2,Notes
+Pepper__bell___Bacterial_spot,Copper-based fungicide,Neem oil,Apply every 7–10 days during humid conditions
+Pepper__bell___healthy,None,None,Plant is healthy – no fertilizer required
+Potato___Early_blight,Chlorothalonil,Mancozeb,Use protective sprays at early infection signs
+Potato___Late_blight,Copper oxychloride,Metalaxyl,Apply preventively before rainy season
+Potato___healthy,None,None,Plant is healthy – no fertilizer required
+Tomato_Bacterial_spot,Copper hydroxide,Streptomycin,Rotate crops to reduce recurrence
+Tomato_Early_blight,Chlorothalonil,Azoxystrobin,Start sprays when lower leaves show symptoms
+Tomato_Late_blight,Cymoxanil,Mancozeb,Apply every 7–10 days when disease pressure is high
+Tomato_Leaf_Mold,Copper fungicide,Sulfur powder,Maintain good air circulation in greenhouse
+Tomato_Septoria_leaf_spot,Copper fungicide,Chlorothalonil,Remove infected leaves immediately
+Tomato_Spider_mites_Two_spotted_spider_mite,Abamectin,Neem oil,Apply miticides or neem spray as needed
+Tomato__Target_Spot,Mancozeb,Captan,Preventive sprays before flowering
+Tomato__Tomato_YellowLeaf__Curl_Virus,Imidacloprid,Thiamethoxam,Control whitefly vectors with insecticides
+Tomato__Tomato_mosaic_virus,No chemical control,None,Remove infected plants; practice seed treatment
+Tomato_healthy,None,None,Plant is healthy – no fertilizer required
