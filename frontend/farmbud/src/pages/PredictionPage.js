@@ -1,0 +1,134 @@
+import { useState } from 'react';
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { motion, AnimatePresence } from 'framer-motion';
+import { Loader2, Thermometer, Droplets, Wind, Clover } from 'lucide-react';
+
+const cropEmojis = {
+  rice: '🌾', maize: '🌽', jute: '🌿', cotton: '☁️', coconut: '🥥', papaya: '🥭',
+  orange: '🍊', apple: '🍎', muskmelon: '🍈', watermelon: '🍉', grapes: '🍇',
+  mango: '🥭', banana: '🍌', pomegranate: '🍎', lentil: '🫘', blackgram: '🫘',
+  mungbean: '🫘', mothbeans: '🫘', pigeonpeas: '🫘', kidneybeans: '🫘',
+  chickpea: '🫘', coffee: '☕',
+};
+
+const InputWithIcon = ({ icon, ...props }) => (
+  <div className="relative">
+    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+      {icon}
+    </div>
+    <Input className="pl-10" {...props} />
+  </div>
+);
+
+export default function PredictionPage() {
+  const [formData, setFormData] = useState({
+    Nitrogen: '', Phosphorus: '', Potassium: '',
+    temperature: '', humidity: '', ph: '', rainfall: ''
+  });
+  const [result, setResult] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setResult('');
+    setIsLoading(true);
+
+    if (Object.values(formData).some(v => v === '')) {
+      setError('Please fill in all fields.');
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(
+          Object.entries(formData).map(([key, value]) => [key, parseFloat(value)])
+        ))
+      });
+      if (!response.ok) throw new Error('Network response was not ok');
+      const data = await response.json();
+      setResult(data.crop);
+    } catch (err) {
+      setError('Failed to get a prediction. Please check the backend server.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="flex justify-center items-center flex-grow py-8 px-4 w-full">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        // --- THIS IS THE KEY CHANGE ---
+        // On large (lg) screens, it takes 3/4 of the width. On extra-large (xl) it's 2/3.
+        className="w-full lg:w-3/4 xl:w-2/3"
+      >
+        <Card className="backdrop-blur-xl bg-card/60 border-border/20">
+          <CardHeader>
+            <CardTitle className="text-3xl font-bold">Crop Recommendation</CardTitle>
+            <CardDescription>Enter the environmental data to get a recommendation.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+              <InputWithIcon icon={<Clover className="h-4 w-4 text-muted-foreground" />} name="Nitrogen" value={formData.Nitrogen} onChange={handleChange} placeholder="Nitrogen (e.g., 90)" type="number" />
+              <InputWithIcon icon={<Clover className="h-4 w-4 text-muted-foreground" />} name="Phosphorus" value={formData.Phosphorus} onChange={handleChange} placeholder="Phosphorus (e.g., 42)" type="number" />
+              <InputWithIcon icon={<Clover className="h-4 w-4 text-muted-foreground" />} name="Potassium" value={formData.Potassium} onChange={handleChange} placeholder="Potassium (e.g., 43)" type="number" />
+              <InputWithIcon icon={<Thermometer className="h-4 w-4 text-muted-foreground" />} name="temperature" value={formData.temperature} onChange={handleChange} placeholder="Temperature °C (e.g., 20.8)" type="number" />
+              <InputWithIcon icon={<Droplets className="h-4 w-4 text-muted-foreground" />} name="humidity" value={formData.humidity} onChange={handleChange} placeholder="Humidity % (e.g., 82)" type="number" />
+              <InputWithIcon icon={<Wind className="h-4 w-4 text-muted-foreground" />} name="ph" value={formData.ph} onChange={handleChange} placeholder="pH Value (e.g., 6.5)" type="number" />
+              <div className="md:col-span-2">
+                <InputWithIcon icon={<Droplets className="h-4 w-4 text-muted-foreground" />} name="rainfall" value={formData.rainfall} onChange={handleChange} placeholder="Rainfall mm (e.g., 202.9)" type="number" />
+              </div>
+
+              <Button type="submit" className="w-full md:col-span-2 mt-2 h-12 text-lg" disabled={isLoading}>
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    Analyzing Data...
+                  </>
+                ) : (
+                  'Get Recommendation'
+                )}
+              </Button>
+            </form>
+            
+            <AnimatePresence>
+              {error && (
+                <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mt-4 text-center text-red-500">
+                  {error}
+                </motion.p>
+              )}
+              {result && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.4 }}
+                  className="mt-8 p-6 bg-secondary/80 rounded-lg text-center"
+                >
+                  <h3 className="text-lg font-medium text-muted-foreground">Our Recommendation</h3>
+                  <p className="text-6xl font-extrabold text-primary capitalize mt-2 flex items-center justify-center">
+                    <span className="mr-4 text-5xl">{cropEmojis[result.toLowerCase()] || '🌱'}</span>
+                    {result}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </CardContent>
+        </Card>
+      </motion.div>
+    </div>
+  );
+}
