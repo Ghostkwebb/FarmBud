@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 
 # --- CROP RECOMMENDATION MODEL ---
-crop_model = joblib.load("Models\crop_recommendation_model.pkl")
+crop_model = joblib.load("../Models/crop_recommendation_model.pkl")
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -23,8 +23,8 @@ def predict():
 
 
 # --- DISEASE DETECTION MODEL ---
-disease_model = tf.keras.models.load_model('Models\plant_disease_model.h5')
-fertilizer_df = pd.read_csv('Models\disease_fertilizer.csv')
+disease_model = tf.keras.models.load_model('../Models/plant_disease_model.h5')
+fertilizer_df = pd.read_csv('../Models/disease_fertilizer.csv')
 
 class_names = [
     'Pepper__bell___Bacterial_spot', 'Pepper__bell___healthy',
