@@ -5,6 +5,7 @@ import { Input } from "../components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, Thermometer, Droplets, Wind, Clover, Lightbulb, X } from 'lucide-react';
+import TextToSpeech from '../components/TextToSpeech';
 
 const cropEmojis = {
   rice: '🌾', maize: '🌽', jute: '🌿', cotton: '☁️', coconut: '🥥', papaya: '🥭',
@@ -89,21 +90,21 @@ export default function PredictionPage() {
       <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="w-full">
         <Card className="backdrop-blur-xl bg-card/60 border-border/20">
           <CardHeader>
-            <CardTitle className="text-3xl font-bold">Crop Recommendation</CardTitle>
-            <CardDescription>Enter the environmental data to get a recommendation.</CardDescription>
+            <TextToSpeech><CardTitle className="text-3xl font-bold">Crop Recommendation</CardTitle></TextToSpeech>
+            <TextToSpeech><CardDescription>Enter the environmental data to get a recommendation.</CardDescription></TextToSpeech>
           </CardHeader>
-          {/* --- MODIFIED: Added a two-column grid --- */}
           <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Left Column: The Form */}
             <div>
               <AnimatePresence>
                 {showSoilInfo && (
                   <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, height: 0, padding: 0, margin: 0 }} transition={{ duration: 0.3 }} className="mb-6 p-4 bg-blue-900/40 text-blue-100 border border-blue-500/50 rounded-lg flex items-start relative">
                     <Lightbulb className="h-5 w-5 mr-3 flex-shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="font-bold">Soil Data Estimated</h4>
-                      <p className="text-sm">The Nitrogen, Phosphorus, Potassium, and pH values have been pre-filled with common averages. For the most accurate results, please replace them with data from your own soil test kit.</p>
-                    </div>
+                    <TextToSpeech>
+                      <div>
+                        <h4 className="font-bold">Soil Data Estimated</h4>
+                        <p className="text-sm">The Nitrogen, Phosphorus, Potassium, and pH values have been pre-filled with common averages. For the most accurate results, please replace them with data from your own soil test kit.</p>
+                      </div>
+                    </TextToSpeech>
                     <Button variant="ghost" size="icon" className="h-6 w-6 absolute top-2 right-2" onClick={() => setShowSoilInfo(false)}><X className="h-4 w-4" /></Button>
                   </motion.div>
                 )}
@@ -121,32 +122,39 @@ export default function PredictionPage() {
                 </Button>
               </form>
             </div>
-
-            {/* --- NEW: Right Column: Parameter Information --- */}
             <div className="flex flex-col justify-center space-y-4">
-              <h3 className="text-xl font-semibold">About the Parameters</h3>
-              <ParameterInfo icon={<Clover className="h-5 w-5 text-primary"/>} title="NPK Values">
-                  Nitrogen (N), Phosphorus (P), and Potassium (K) are the three primary macronutrients essential for healthy plant growth.
-              </ParameterInfo>
-              <ParameterInfo icon={<Thermometer className="h-5 w-5 text-primary"/>} title="Temperature">
-                  Each crop has an optimal temperature range for germination and growth. Extreme temperatures can stunt growth or kill the plant.
-              </ParameterInfo>
-              <ParameterInfo icon={<Droplets className="h-5 w-5 text-primary"/>} title="Humidity & Rainfall">
-                  These determine the water availability for the crop. High humidity can sometimes increase the risk of fungal diseases.
-              </ParameterInfo>
-              <ParameterInfo icon={<Wind className="h-5 w-5 text-primary"/>} title="pH Value">
-                  Soil pH affects nutrient availability. Most crops prefer a neutral pH range (6.0 to 7.5) to absorb nutrients effectively.
-              </ParameterInfo>
-              
+              <TextToSpeech><h3 className="text-xl font-semibold">About the Parameters</h3></TextToSpeech>
+              <TextToSpeech>
+                  <ParameterInfo icon={<Clover className="h-5 w-5 text-primary"/>} title="NPK Values">
+                      Nitrogen (N), Phosphorus (P), and Potassium (K) are the three primary macronutrients essential for healthy plant growth.
+                  </ParameterInfo>
+              </TextToSpeech>
+              <TextToSpeech>
+                  <ParameterInfo icon={<Thermometer className="h-5 w-5 text-primary"/>} title="Temperature">
+                      Each crop has an optimal temperature range for germination and growth. Extreme temperatures can stunt growth or kill the plant.
+                  </ParameterInfo>
+              </TextToSpeech>
+              <TextToSpeech>
+                  <ParameterInfo icon={<Droplets className="h-5 w-5 text-primary"/>} title="Humidity & Rainfall">
+                      These determine the water availability for the crop. High humidity can sometimes increase the risk of fungal diseases.
+                  </ParameterInfo>
+              </TextToSpeech>
+              <TextToSpeech>
+                  <ParameterInfo icon={<Wind className="h-5 w-5 text-primary"/>} title="pH Value">
+                      Soil pH affects nutrient availability. Most crops prefer a neutral pH range (6.0 to 7.5) to absorb nutrients effectively.
+                  </ParameterInfo>
+              </TextToSpeech>
               <AnimatePresence>
                 {error && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mt-4 text-center text-red-500">{error}</motion.p>}
                 {result && (
                   <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.4 }} className="mt-4 p-6 bg-secondary/80 rounded-lg text-center">
-                    <h3 className="text-lg font-medium text-muted-foreground">Our Recommendation</h3>
-                    <p className="text-6xl font-extrabold text-primary capitalize mt-2 flex items-center justify-center">
-                      <span className="mr-4 text-5xl">{cropEmojis[result.toLowerCase()] || '🌱'}</span>
-                      {result}
-                    </p>
+                    <TextToSpeech><h3 className="text-lg font-medium text-muted-foreground">Our Recommendation</h3></TextToSpeech>
+                    <TextToSpeech>
+                      <p className="text-6xl font-extrabold text-primary capitalize mt-2 flex items-center justify-center">
+                        <span className="mr-4 text-5xl">{cropEmojis[result.toLowerCase()] || '🌱'}</span>
+                        {result}
+                      </p>
+                    </TextToSpeech>
                   </motion.div>
                 )}
               </AnimatePresence>
