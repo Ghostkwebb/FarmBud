@@ -1,5 +1,6 @@
 import { PredictionProvider } from './PredictionContext';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+// --- MODIFIED: Replaced Link with NavLink ---
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom'; 
 import { ThemeProvider } from './components/theme-provider';
 import { ModeToggle } from './components/mode-toggle';
 import HomePage from './pages/HomePage';
@@ -10,6 +11,14 @@ import FarmBudIcon from './assets/FarmBudIcon.png';
 import 'leaflet/dist/leaflet.css';
 
 function App() {
+  // --- NEW: A helper function for cleaner NavLink classes ---
+  const getNavLinkClass = ({ isActive }) => {
+    const baseClasses = "text-sm font-medium transition-colors hover:text-primary";
+    return isActive
+      ? `${baseClasses} text-primary` // Style for the active link
+      : `${baseClasses} text-muted-foreground`; // Style for inactive links
+  };
+
   return (
     <PredictionProvider>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
@@ -17,23 +26,24 @@ function App() {
           <div className="min-h-screen flex flex-col font-sans">
             <header className="sticky top-0 z-50 w-full backdrop-blur-lg bg-background/60">
               <div className="container h-16 flex items-center justify-between">
-                <Link to="/" className="flex items-center gap-3"> 
+                <NavLink to="/" className="flex items-center gap-3"> 
                   <img src={FarmBudIcon} alt="FarmBud Icon" className="h-8 w-8" /> 
                   <span className="text-xl font-bold">FarmBud</span>
-                </Link>
+                </NavLink>
                 <nav className="flex items-center gap-6">
-                  <Link to="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+                  {/* --- MODIFIED: All Links are now NavLinks with the active style --- */}
+                  <NavLink to="/" className={getNavLinkClass}>
                     Home
-                  </Link>
-                  <Link to="/soil-map" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+                  </NavLink>
+                  <NavLink to="/soil-map" className={getNavLinkClass}>
                     Soil Map
-                  </Link>
-                  <Link to="/predict" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+                  </NavLink>
+                  <NavLink to="/predict" className={getNavLinkClass}>
                     Predict Crop
-                  </Link>
-                  <Link to="/disease-detect" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+                  </NavLink>
+                  <NavLink to="/disease-detect" className={getNavLinkClass}>
                     Crop Disease Detect 
-                  </Link>
+                  </NavLink>
                   <ModeToggle />
                 </nav>
               </div>
