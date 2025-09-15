@@ -34,13 +34,53 @@ export default function SoilMapPage() {
   const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  
   const { setSoilDataToApply } = usePrediction();
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
   
-  const handleSoilImageChange = (e) => { /* ... unchanged ... */ };
-  const handleAnalyzeSoil = async () => { /* ... unchanged ... */ };
-  const handleApplyToPrediction = () => { /* ... unchanged ... */ };
+  const handleSoilImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSoilImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => { setSoilImagePreview(reader.result); };
+      reader.readAsDataURL(file);
+      setError('');
+    }
+  };
+
+  const handleAnalyzeSoil = async () => {
+    if (!soilImage) return;
+    setIsProcessing(true);
+    setError('');
+    const formData = new FormData();
+    formData.append('file', soilImage);
+    try {
+      // --- THIS IS THE CORRECTED LINE ---
+      const response = await fetch('http://127.0.0.1:5000/predict_soil', { method: 'POST', body: formData });
+      
+      // --- NEW: Better error handling ---
+      if (!response.ok) {
+        throw new Error(`Server error (status ${response.status}). Make sure the backend is running correctly.`);
+      }
+      const data = await response.json();
+      setSoilData(data);
+      setStep(2);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleApplyToPrediction = () => {
+    if (soilData && weatherData) {
+      const finalData = { ...soilData.nutrients, ...weatherData };
+      setSoilDataToApply(finalData);
+      navigate('/predict');
+    }
+  };
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container py-8">
@@ -93,6 +133,7 @@ export default function SoilMapPage() {
   );
 }
 
+// --- THIS SUB-COMPONENT IS NOW COMPLETE ---
 function LocationStep({ soilData, onWeatherDataFetched }) {
   const [mapCenter, setMapCenter] = useState([20.5937, 78.9629]);
   const [markerPosition, setMarkerPosition] = useState(null);
@@ -103,10 +144,53 @@ function LocationStep({ soilData, onWeatherDataFetched }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
 
-  const fetchSuggestions = useDebouncedCallback(async (query) => { /* ... unchanged ... */ }, 300);
-  const fetchLocationData = async (lat, lon) => { /* ... unchanged ... */ };
-  const handleMapClick = (latlng) => { fetchLocationData(latlng.lat, latlng.lng); };
-  const handleGetCurrentLocation = () => { /* ... unchanged ... */ };
+  const fetchSuggestions = useDebouncedCallback(async (query) => {
+    if (query.length < 3) return setSuggestions([]);
+    try {
+      const response = await fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${query}&apiKey=${GEOAPIFY_API_KEY}`);
+      const data = await response.json();
+      setSuggestions(data.features || []);
+    } catch (err) { console.error("Error fetching suggestions:", err); }
+  }, 300);
+
+  const fetchLocationData = async (lat, lon) => {
+    setError('');
+    setSuccessMessage('');
+    setMarkerPosition([lat, lon]);
+    setMapCenter([lat, lon]);
+    try {
+      const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${OPENWEATHERMAP_API_KEY}&units=metric`);
+      if (!weatherResponse.ok) throw new Error('Could not fetch weather data.');
+      const weatherData = await weatherResponse.json();
+      const dataToSet = {
+        temperature: weatherData.main.temp,
+        humidity: weatherData.main.humidity,
+        rainfall: weatherData.rain?.['1h'] || 0,
+      };
+      onWeatherDataFetched(dataToSet);
+      setSuccessMessage(`Fetched weather for ${weatherData.name}!`);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleMapClick = (latlng) => {
+    fetchLocationData(latlng.lat, latlng.lng);
+  };
+  
+  const handleGetCurrentLocation = () => {
+    setIsLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        fetchLocationData(position.coords.latitude, position.coords.longitude);
+        setIsLocating(false);
+      },
+      (err) => {
+        setError('Could not get location. Please enable services.');
+        setIsLocating(false);
+      }
+    );
+  };
   
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
