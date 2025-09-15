@@ -1,6 +1,5 @@
 import { PredictionProvider } from './PredictionContext';
-// --- MODIFIED: Replaced Link with NavLink ---
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom'; 
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom'; // Using NavLink
 import { ThemeProvider } from './components/theme-provider';
 import { ModeToggle } from './components/mode-toggle';
 import HomePage from './pages/HomePage';
@@ -11,12 +10,11 @@ import FarmBudIcon from './assets/FarmBudIcon.png';
 import 'leaflet/dist/leaflet.css';
 
 function App() {
-  // --- NEW: A helper function for cleaner NavLink classes ---
+  // --- MODIFIED: This function now uses the high-contrast text color for inactive links ---
   const getNavLinkClass = ({ isActive }) => {
-    const baseClasses = "text-sm font-medium transition-colors hover:text-primary";
-    return isActive
-      ? `${baseClasses} text-primary` // Style for the active link
-      : `${baseClasses} text-muted-foreground`; // Style for inactive links
+    return `text-sm font-medium transition-colors hover:text-primary ${
+      isActive ? 'text-primary' : 'text-foreground' // Changed from text-muted-foreground
+    }`;
   };
 
   return (
@@ -31,7 +29,7 @@ function App() {
                   <span className="text-xl font-bold">FarmBud</span>
                 </NavLink>
                 <nav className="flex items-center gap-6">
-                  {/* --- MODIFIED: All Links are now NavLinks with the active style --- */}
+                  {/* Each NavLink now uses the corrected style function */}
                   <NavLink to="/" className={getNavLinkClass}>
                     Home
                   </NavLink>

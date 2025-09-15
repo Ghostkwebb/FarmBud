@@ -11,7 +11,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popove
 import { useDebouncedCallback } from 'use-debounce';
 
 // --- NEW: Import the soil map of India ---
-import IndiaSoilMap from '../assets/soil_map_india.jpg';
+import IndiaSoilMap from '../assets/soil_map_india.png';
 
 const GEOAPIFY_API_KEY = '0d2b144b9d9c48759462f3c4db30f9c7';
 const OPENWEATHERMAP_API_KEY = '4934af38a51a1a72ec257163a615209a';
