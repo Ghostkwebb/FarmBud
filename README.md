@@ -1,6 +1,7 @@
 FarmBud: Your Smart Farming Assistant
 
-Overview
+Overview:
+
 FarmBud is a web application designed to empower small-scale farmers by providing them with crucial data and insights to make informed decisions. By leveraging machine learning and real-time data, FarmBud aims to enhance agricultural productivity and contribute to a more sustainable future, in alignment with the UN's Sustainable Development Goal 2: Zero Hunger.[1][2][3][4][5]
 This application addresses the core challenges faced by small-scale farmers, including unpredictable weather, crop diseases, and market fluctuations. By offering a suite of intelligent tools, FarmBud helps to mitigate risks and improve crop yields.
 
@@ -11,7 +12,8 @@ Key Features
 3. Crop Recommendation: Based on soil composition, the app suggests suitable crops for cultivation, optimizing the use of land and resources.
 4. Soil Quality Analysis: FarmBud provides region-based soil quality information, giving farmers a better understanding of their land's health and potential.
 
-Tech Stack
+Tech Stack:
+
 FarmBud is built with a modern and robust technology stack:
 Frontend: React
 Backend: Python (Flask)
@@ -21,7 +23,8 @@ OpenWeatherMap API
 data.gov.in
 Plant Village dataset (Kaggle)
 
-Workflow
+Workflow:
+
 The application follows a simple and intuitive workflow:
   The user interacts with the React-based frontend.
   The frontend communicates with the Flask backend to access various features.
@@ -30,20 +33,23 @@ The application follows a simple and intuitive workflow:
       Crop disease analysis
       Crop and soil quality recommendations
 
-Expected Benefits
+Expected Benefits:
+
 Informed Decision-Making: Optimize harvesting and selling schedules with accurate data.
 Weather Resilience: Reduce crop losses caused by adverse weather conditions.
 Early Disease Detection: Minimize pesticide overuse and improve overall crop health.[6]
 Economic Growth: Increase market awareness and improve farmer incomes.
 
-Future Scope
+Future Scope:
+
 The team behind FarmBud is committed to continuous improvement and plans to introduce the following enhancements:
     Automated Chatbot Support: For instant query resolution.
     Voice-Enabled Guidance: To improve accessibility for all users.
     Government Subsidy Integration: To provide farmers with easy access to financial support.
 
 
-Getting Started
+Getting Started:
+
 To get a local copy up and running, follow these simple steps.
 
 Prerequisites
@@ -60,7 +66,8 @@ npm install
 3.Run the application
 npm start
 
-Contributions
+Contributions:
+
 @Ghostkwebb. 
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
