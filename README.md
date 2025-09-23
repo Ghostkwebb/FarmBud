@@ -56,9 +56,10 @@ Expected Benefits:
 Future Scope:
 
 The team behind FarmBud is committed to continuous improvement and plans to introduce the following enhancements:
-    1.Automated Chatbot Support: For instant query resolution.
-    2.Voice-Enabled Guidance: To improve accessibility for all users.
-    3.Government Subsidy Integration: To provide farmers with easy access to financial support.
+
+    Automated Chatbot Support: For instant query resolution.
+    Voice-Enabled Guidance: To improve accessibility for all users.
+    Government Subsidy Integration: To provide farmers with easy access to financial support.
 
 
 Getting Started:
