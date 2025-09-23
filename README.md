@@ -6,10 +6,6 @@
   <h1 align="center">FarmBud: Your Smart Farming Assistant</h1>
 </p>
 
-<p align="center">
-  <h1 align="center">FarmBud: Your Smart Farming Assistant</h1>
-</p>
-
 Overview:
 
 FarmBud is a web application designed to empower small-scale farmers by providing them with crucial data and insights to make informed decisions. By leveraging machine learning and real-time data, FarmBud aims to enhance agricultural productivity and contribute to a more sustainable future, in alignment with the UN's Sustainable Development Goal 2: Zero Hunger.[1][2][3][4][5]
