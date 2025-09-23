@@ -14,45 +14,51 @@ Key Features
 
 Tech Stack:
 
-FarmBud is built with a modern and robust technology stack
+1.FarmBud is built with a modern and robust technology stack
 
-Frontend: React
+2.Frontend: React
 
-Backend: Python (Flask)
+3.Backend: Python (Flask)
 
-Machine Learning Model: Scikit-learn / Keras (CNN)
+4.Machine Learning Model: Scikit-learn / Keras (CNN)
 
 APIs & Datasets:
 
-OpenWeatherMap API
+1.OpenWeatherMap API
 
-data.gov.in
+2.data.gov.in
 
-Plant Village dataset (Kaggle)
+3.Plant Village dataset (Kaggle)
 
 Workflow:
 
 The application follows a simple and intuitive workflow:
-  The user interacts with the React-based frontend.
-  The frontend communicates with the Flask backend to access various features.
-  The backend processes requests, utilizing the machine learning model and external APIs to provide:
+  1.The user interacts with the React-based frontend.
+  
+  2.The frontend communicates with the Flask backend to access various features.
+  
+  3.The backend processes requests, utilizing the machine learning model and external APIs to provide:
+      
       Weather forecasts
       Crop disease analysis
       Crop and soil quality recommendations
 
 Expected Benefits:
 
-Informed Decision-Making: Optimize harvesting and selling schedules with accurate data.
-Weather Resilience: Reduce crop losses caused by adverse weather conditions.
-Early Disease Detection: Minimize pesticide overuse and improve overall crop health.[6]
-Economic Growth: Increase market awareness and improve farmer incomes.
+1.Informed Decision-Making: Optimize harvesting and selling schedules with accurate data.
+
+2.Weather Resilience: Reduce crop losses caused by adverse weather conditions.
+
+3.Early Disease Detection: Minimize pesticide overuse and improve overall crop health.[6]
+
+4.Economic Growth: Increase market awareness and improve farmer incomes.
 
 Future Scope:
 
 The team behind FarmBud is committed to continuous improvement and plans to introduce the following enhancements:
-    Automated Chatbot Support: For instant query resolution.
-    Voice-Enabled Guidance: To improve accessibility for all users.
-    Government Subsidy Integration: To provide farmers with easy access to financial support.
+    1.Automated Chatbot Support: For instant query resolution.
+    2.Voice-Enabled Guidance: To improve accessibility for all users.
+    3.Government Subsidy Integration: To provide farmers with easy access to financial support.
 
 
 Getting Started:
