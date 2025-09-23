@@ -14,13 +14,20 @@ Key Features
 
 Tech Stack:
 
-FarmBud is built with a modern and robust technology stack:
+FarmBud is built with a modern and robust technology stack
+
 Frontend: React
+
 Backend: Python (Flask)
+
 Machine Learning Model: Scikit-learn / Keras (CNN)
+
 APIs & Datasets:
+
 OpenWeatherMap API
+
 data.gov.in
+
 Plant Village dataset (Kaggle)
 
 Workflow:
