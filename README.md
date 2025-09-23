@@ -1,4 +1,12 @@
 <p align="center">
+  <img src="https://github.com/mushir2004/FarmBud/blob/main/frontend/farmbud/src/assets/FarmBudLogo.png" alt="FarmBud Logo" width="200"/>
+</p>
+
+<p align="center">
+  <h1 align="center">FarmBud: Your Smart Farming Assistant</h1>
+</p>
+
+<p align="center">
   <h1 align="center">FarmBud: Your Smart Farming Assistant</h1>
 </p>
 
