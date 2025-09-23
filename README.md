@@ -1,4 +1,6 @@
-FarmBud: Your Smart Farming Assistant
+<p align="center">
+  <h1 align="center">FarmBud: Your Smart Farming Assistant</h1>
+</p>
 
 Overview:
 
